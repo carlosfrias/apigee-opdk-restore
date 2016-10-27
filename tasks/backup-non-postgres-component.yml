@@ -1,0 +1,9 @@
+---
+- name: Stop component {{ component_profile }}
+  shell: '{{ apigee_service }} {{ component_profile }} stop'
+
+- name: Backup component {{ component_profile }}
+  shell: '{{ apigee_service }} {{ component_profile }} restore backup-{{ backup_time }}.tar.gz'
+
+- name: Start component {{ component_profile }}
+  shell: '{{ apigee_service }} {{ component_profile }} start'
