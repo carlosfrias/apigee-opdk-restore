@@ -1,31 +1,44 @@
-Role Name
-=========
+Apigee OPDK Restore
+===================
 
-A brief description of the role goes here.
+This role performs a restore using the apigee-service utility. This role 
+requires that you indicate which backup to restore.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+It is expected that the apigee-service utility was used as described at 
+[How to Perform a Backup](http://docs.apigee.com/private-cloud/latest/how-perform-backup). 
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+#### backup_time
+
+This variable contains the date and time of the backup that should be 
+restored. The naming convention of the backup files is explained at
+[How to Perform a Backup](http://docs.apigee.com/private-cloud/latest/how-perform-backup).     
+This variable expects the date and time value to be set using the pattern: 
+
+    backup_time: (year).(month).(day),(hour).(min).(seconds)
+
+#### component_name
+    
+This variable expects the name of an apigee component to be restored.
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+- apigee-opdk-setup-default-settings
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+Example usage in a playbook:
 
-    - hosts: servers
+    - hosts: pg
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: apigee-opdk-restore, component_name: apigee-cassandra, backup_time: 2016.10.27,08.45.35 }
 
 License
 -------
@@ -35,4 +48,4 @@ Apache
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Carlos Frias
